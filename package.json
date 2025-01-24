@@ -1,6 +1,6 @@
 {
-    "ChatGPTA": {
-        "name": "ChatGPTA",
+    "ChatGPTAzure": {
+        "name": "ChatGPTAzure",
         "description": "消息交互支持与ChatGPT对话。",
         "labels": "消息通知,识别",
         "version": "2.0.3",
