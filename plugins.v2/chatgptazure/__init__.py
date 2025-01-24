@@ -4,7 +4,7 @@ from app.core.config import settings
 from app.core.event import eventmanager, Event
 from app.log import logger
 from app.plugins import _PluginBase
-from app.plugins.chatgpt.openai import OpenAiAzure
+from app.plugins.chatgpt.openaiazure import OpenAiAzure
 from app.schemas.types import EventType, ChainEventType
 
 class ChatGPTAzure(_PluginBase):
