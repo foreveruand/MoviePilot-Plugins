@@ -7,7 +7,7 @@ from app.plugins import _PluginBase
 from app.plugins.chatgpt.openaiazure import OpenAiAzure
 from app.schemas.types import EventType, ChainEventType
 
-class ChatGPTAzure(_PluginBase):
+class ChatGPTA(_PluginBase):
     # 插件名称
     plugin_name = "ChatGPTAzure"
     # 插件描述
@@ -15,13 +15,13 @@ class ChatGPTAzure(_PluginBase):
     # 插件图标
     plugin_icon = "Chatgpt_A.png"
     # 插件版本
-    plugin_version = "2.0.2"
+    plugin_version = "2.0.3"
     # 插件作者
     plugin_author = "jxxghp,foreveruand"
     # 作者主页
     author_url = "https://github.com/jxxghp"
     # 插件配置项ID前缀
-    plugin_config_prefix = "chatgptazure_"
+    plugin_config_prefix = "chatgptaz_"
     # 加载顺序
     plugin_order = 15
     # 可使用的用户级别
