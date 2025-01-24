@@ -8,7 +8,7 @@ from cacheout import Cache
 OpenAISessionCache = Cache(maxsize=100, ttl=3600, timer=time.time, default=None)
 
 
-class OpenAi:
+class OpenAiAzure:
     _api_key: str = None
     _api_url: str = None
     _deployment_name: str = None
