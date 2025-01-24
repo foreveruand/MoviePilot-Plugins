@@ -7,10 +7,9 @@ from app.plugins import _PluginBase
 from app.plugins.chatgpt.openai import OpenAi
 from app.schemas.types import EventType, ChainEventType
 
-
-class ChatGPT(_PluginBase):
+class ChatGPTAzure(_PluginBase):
     # 插件名称
-    plugin_name = "ChatGPT"
+    plugin_name = "ChatGPT(Azure)"
     # 插件描述
     plugin_desc = "消息交互支持与ChatGPT对话。"
     # 插件图标
@@ -33,6 +32,7 @@ class ChatGPT(_PluginBase):
     _enabled = False
     _proxy = False
     _recognize = False
+    _openai_provider = None
     _openai_url = None
     _openai_key = None
     _model = None
@@ -42,13 +42,14 @@ class ChatGPT(_PluginBase):
             self._enabled = config.get("enabled")
             self._proxy = config.get("proxy")
             self._recognize = config.get("recognize")
+            self._openai_provider = config.get("openai_provider")
             self._openai_url = config.get("openai_url")
             self._openai_key = config.get("openai_key")
             self._model = config.get("model")
             if self._openai_url and self._openai_key:
                 self.openai = OpenAi(api_key=self._openai_key, api_url=self._openai_url,
                                      proxy=settings.PROXY if self._proxy else None,
-                                     model=self._model)
+                                     model=self._model,provider=self._openai_provider)
 
     def get_state(self) -> bool:
         return self._enabled
@@ -134,6 +135,23 @@ class ChatGPT(_PluginBase):
                                     {
                                         'component': 'VTextField',
                                         'props': {
+                                            'model': 'openai_provider',
+                                            'label': 'OpenAI provider',
+                                            'placeholder': 'azure',
+                                        }
+                                    }
+                                ]
+                            },
+                            {
+                                'component': 'VCol',
+                                'props': {
+                                    'cols': 12,
+                                    'md': 4
+                                },
+                                'content': [
+                                    {
+                                        'component': 'VTextField',
+                                        'props': {
                                             'model': 'openai_url',
                                             'label': 'OpenAI API Url',
                                             'placeholder': 'https://api.openai.com',
@@ -204,6 +222,7 @@ class ChatGPT(_PluginBase):
             "enabled": False,
             "proxy": False,
             "recognize": False,
+            "openai_provider": "azure",
             "openai_url": "https://api.openai.com",
             "openai_key": "",
             "model": "gpt-3.5-turbo"
@@ -235,8 +254,6 @@ class ChatGPT(_PluginBase):
         """
         监听识别事件，使用ChatGPT辅助识别名称
         """
-        if not self.openai:
-            return
         if not self._recognize:
             return
         if not event.event_data:

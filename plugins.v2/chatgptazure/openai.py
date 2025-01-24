@@ -11,15 +11,24 @@ OpenAISessionCache = Cache(maxsize=100, ttl=3600, timer=time.time, default=None)
 class OpenAi:
     _api_key: str = None
     _api_url: str = None
+    _deployment_name: str = None
     _model: str = "gpt-3.5-turbo"
 
-    def __init__(self, api_key: str = None, api_url: str = None, proxy: dict = None, model: str = None):
+    def __init__(self, api_key: str = None, api_url: str = None, proxy: dict = None, model: str = None, provider: str = None):
         self._api_key = api_key
         self._api_url = api_url
-        openai.api_base = self._api_url + "/v1"
-        openai.api_key = self._api_key
-        if proxy and proxy.get("https"):
-            openai.proxy = proxy.get("https")
+        self._deployment_name = model
+        http_client = httpx.Client(proxies=proxy) if proxy else None
+        if (provider=='azure'):
+            self.client = openai.AzureOpenAI(api_key=self._api_key,http_client=http_client,azure_endpoint=self._api_url,api_version="2023-09-01-preview")
+        else :
+            self.client = openai.OpenAI(api_key=self._api_key,http_client=http_client,azure_endpoint=self._api_url)
+        # openai.api_base = self._api_url + "/v1"
+        # openai.api_key = self._api_key
+        # if provider:
+        #     openai.deployment_name = self._deployment_name
+        # if proxy and proxy.get("https"):
+        #     openai.proxy = proxy.get("https")
         if model:
             self._model = model
 
@@ -94,7 +103,8 @@ class OpenAi:
                         "content": message
                     }
                 ]
-        return openai.ChatCompletion.create(
+        return self.client.chat.completions.create(        
+        # return openai.ChatCompletion.create(
             model=self._model,
             user=user,
             messages=message,

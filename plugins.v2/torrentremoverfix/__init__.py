@@ -18,21 +18,21 @@ from app.utils.string import StringUtils
 lock = threading.Lock()
 
 
-class TorrentRemover(_PluginBase):
+class TorrentRemoverFix(_PluginBase):
     # 插件名称
-    plugin_name = "自动删种"
+    plugin_name = "自动删种(自用修改版)"
     # 插件描述
-    plugin_desc = "自动删除下载器中的下载任务。"
+    plugin_desc = "自动删除下载器中的下载任务。(自用修改版)"
     # 插件图标
     plugin_icon = "delete.jpg"
     # 插件版本
-    plugin_version = "2.2"
+    plugin_version = "2.3"
     # 插件作者
     plugin_author = "jxxghp"
     # 作者主页
     author_url = "https://github.com/jxxghp"
     # 插件配置项ID前缀
-    plugin_config_prefix = "torrentremover_"
+    plugin_config_prefix = "torrentremoverfix_"
     # 加载顺序
     plugin_order = 8
     # 可使用的用户级别
@@ -146,8 +146,8 @@ class TorrentRemover(_PluginBase):
         """
         if self.get_state():
             return [{
-                "id": "TorrentRemover",
-                "name": "自动删种服务",
+                "id": "TorrentRemoverFix",
+                "name": "自动删种服务(辅种修改版)",
                 "trigger": CronTrigger.from_crontab(self._cron),
                 "func": self.delete_torrents,
                 "kwargs": {}
@@ -795,7 +795,8 @@ class TorrentRemover(_PluginBase):
             tags.append(settings.TORRENT_TAG)
         # 查询种子
         torrents, error_flag = downloader_obj.get_torrents(tags=tags or None)
-        if error_flag:
+        torrents_all, error_flag_all = downloader_obj.get_torrents(tags= [] or None)
+        if error_flag or error_flag_all:
             return []
         # 处理种子
         for torrent in torrents:
@@ -813,7 +814,7 @@ class TorrentRemover(_PluginBase):
             for remove_torrent in remove_torrents:
                 name = remove_torrent.get("name")
                 size = remove_torrent.get("size")
-                for torrent in torrents:
+                for torrent in torrents_all:
                     if downloader_config.type == "qbittorrent":
                         plus_id = torrent.hash
                         plus_name = torrent.name
