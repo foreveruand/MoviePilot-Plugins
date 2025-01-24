@@ -9,15 +9,15 @@ from app.schemas.types import EventType, ChainEventType
 
 class ChatGPTAzure(_PluginBase):
     # 插件名称
-    plugin_name = "ChatGPT(Azure)"
+    plugin_name = "ChatGPTAzure"
     # 插件描述
     plugin_desc = "消息交互支持与ChatGPT对话。"
     # 插件图标
     plugin_icon = "Chatgpt_A.png"
     # 插件版本
-    plugin_version = "2.0.1"
+    plugin_version = "2.0.2"
     # 插件作者
-    plugin_author = "jxxghp"
+    plugin_author = "jxxghp,foreveruand"
     # 作者主页
     author_url = "https://github.com/jxxghp"
     # 插件配置项ID前缀
