@@ -22,7 +22,7 @@ class OpenAi:
         if (provider=='azure'):
             self.client = openai.AzureOpenAI(api_key=self._api_key,http_client=http_client,azure_endpoint=self._api_url,api_version="2023-09-01-preview")
         else :
-            self.client = openai.OpenAI(api_key=self._api_key,http_client=http_client,azure_endpoint=self._api_url)
+            self.client = openai.OpenAI(api_key=self._api_key,http_client=http_client,base_url=self._api_url)
         # openai.api_base = self._api_url + "/v1"
         # openai.api_key = self._api_key
         # if provider:
