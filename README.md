@@ -1,6 +1,17 @@
 # MoviePilot-Plugins
 MoviePilot官方插件市场：https://github.com/jxxghp/MoviePilot-Plugins
 
+### 本仓库插件
+
+#### [Chatgpt]
+- 原插件地址：[jxxghp](https://github.com/jxxghp/Moviepilot-Plugins)
+- 修改项：增加Azure选项（配置完成后再点开会白屏）
+#### [自动删种插件]
+- 原插件地址：[jxxghp](https://github.com/jxxghp/Moviepilot-Plugins)
+- 修改项：处理辅种不再匹配标签，而是在qb所有种子中匹配
+#### [聚合消息通知]
+- 原插件地址：[hotlcc](https://github.com/hotlcc/MoviePilot-Plugins)
+- 修改项：http方式发送通知时，对text变量进行json.dump处理，原版text没有转义换行符，发送会失败
 ## 第三方插件库开发说明
 > 请不要开发用于破解MoviePilot用户认证、色情、赌博等违法违规内容的插件，共同维护健康的开发环境！
 
