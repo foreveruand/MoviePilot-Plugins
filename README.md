@@ -3,9 +3,10 @@ MoviePilot官方插件市场：https://github.com/jxxghp/MoviePilot-Plugins
 
 ### 本仓库插件
 
-#### [Chatgpt]
-- 原插件地址：[jxxghp](https://github.com/jxxghp/Moviepilot-Plugins)
-- 修改项：增加Azure选项（配置完成后再点开会白屏）
+#### `mediacovergenerator` 插件的补丁副本。
+- 版本：0.9.5-patch1
+- 目的：修复在容器重启/重建后生成的封面文字丢失问题（修复字体下载/缓存与配置保存相关的若干 bug）。
+
 #### [自动删种插件]
 - 原插件地址：[jxxghp](https://github.com/jxxghp/Moviepilot-Plugins)
 - 修改项：处理辅种不再匹配标签，而是在qb所有种子中匹配
